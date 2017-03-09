@@ -50,6 +50,7 @@
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
+				<!--
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
                     <ul class="dropdown-menu message-dropdown">
@@ -125,17 +126,18 @@
                         <li class="divider"></li>
                     </ul>
                 </li>
+				-->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Admin <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-user"></i> Add New Students</a>
+                            <a href="upload_students.html"><i class="fa fa-fw fa-user"></i>Upload New Students List</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-envelope"></i>Upload New Student List</a>
+                            <a href="www.mvgrexamcell.pythonanywhere.com/admin"><i class="fa fa-fw fa-envelope"></i>Admin Portal</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-gear"></i>Change Password</a>
+                            <a href="change_password.html"><i class="fa fa-fw fa-gear"></i>Change Password</a>
                         </li>
                         <li class="divider"></li>
                         <li>
@@ -144,6 +146,7 @@
                     </ul>
                 </li>
             </ul>
+			
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
@@ -151,30 +154,21 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#demoStudents"><i class="fa fa-fw fa-arrows-v"></i> Students <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demoStudents" class="collapse">
                             <li>
-                                <a href="#">Register Students</a>
+                                <a href="promote.html">Promote/Demote Students</a>
                             </li>
                             <li>
-                                <a href="#">Upload List</a>
+                                <a href="upload_registered_students.html">Upload List</a>
                             </li>
-			    <li>
-                                <a href="#">Promote/Demote Students</a>
-                            </li>
-			    <li>
-                                <a href="#">Edit Student Details</a>
+							<li>
+                                <a href="remove_registered_students.html">Remove List</a>
                             </li>
                         </ul>
                     </li>
 		    <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demoFaculty"><i class="fa fa-fw fa-arrows-v"></i> Faculty <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demoFaculty" class="collapse">
-                            <li>
-                                <a href="#">Add Faculty</a>
-                            </li>
-                            <li>
-                                <a href="#">Edit Faculty Details</a>
-                            </li>
-			    <li>
-                                <a href="#">Upload Faculty Timetable</a>
+							<li>
+                                <a href="upload_faculty_timetable.html">Upload Faculty Timetable</a>
                             </li>
                         </ul>
                     </li>
@@ -182,13 +176,13 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#demoExamination"><i class="fa fa-fw fa-arrows-v"></i> Examination <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demoExamination" class="collapse">
                             <li>
-                                <a href="#">Load Examination</a>
+                                <a href="create_new_plan.html">Create New Plan</a>
                             </li>
                             <li>
-                                <a href="#">Add Classrooms</a>
+                                <a href="load_old_plan.html">Load Previous Plan</a>
                             </li>
 			    <li>
-                                <a href="#">Edit Classrooms</a>
+                                <a href="view_invigilation_status.html">View Invigilation Status</a>
                             </li>
                         </ul>
                     </li>
@@ -196,10 +190,10 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#demoTimetable"><i class="fa fa-fw fa-arrows-v"></i> Timetable <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demoTimetable" class="collapse">
                             <li>
-                                <a href="#">Upload Timetable</a>
+                                <a href="upload_timetable.html">Upload Timetable</a>
                             </li>
                             <li>
-                                <a href="#">Delete Timetable</a>
+                                <a href="remove_timetable.html">Remove Timetable</a>
                             </li>
                         </ul>
                     </li>
