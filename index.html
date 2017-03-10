@@ -29,10 +29,57 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+	<script type="text/javascript">
 
+		var popupWindow=null;
+
+		function promote_open()
+		{ 
+
+		popupWindow =window.open('promote.html',"_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=900, height=350,top=200,left=200");
+
+		}
+		function register_list_open()
+		{ 
+
+		popupWindow =window.open('upload_registered_students.html',"_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=600, height=350,top=200,left=200");
+
+		}
+		function student_list_open()
+		{
+			popupWindow =window.open('upload_students.html',"_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=600, height=350,top=200,left=200");
+		}
+		function faculty_timetable_open()
+		{
+			popupWindow =window.open('upload_faculty_timetable.html',"_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=600, height=350,top=200,left=200");
+		}
+		function remove_list_open()
+		{
+			popupWindow =window.open('remove_registered_students.html',"_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=600, height=350,top=200,left=200");
+		}
+		function remove_timetable_open()
+		{
+			popupWindow =window.open('remove_timetable.html',"_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=600, height=350,top=200,left=200");
+		}
+		function timetable_open()
+		{
+			popupWindow =window.open('upload_timetable.html',"_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=600, height=350,top=200,left=200");
+		}
+		function invigilation_status_open()
+		{ 
+
+		popupWindow =window.open('view_invigilation_status.html',"_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=900, height=350,top=200,left=200");
+
+		}
+		function parent_disable() {
+		if(popupWindow && !popupWindow.closed)
+		popupWindow.focus();
+		}
+		
+	</script>
 </head>
 
-<body>
+<body onFocus="parent_disable();" onclick="parent_disable();">
 
     <div id="wrapper">
 
@@ -131,7 +178,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Admin <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="upload_students.html"><i class="fa fa-fw fa-user"></i>Upload New Students List</a>
+                            <a href="javascript:student_list_open()"><i class="fa fa-fw fa-user"></i>Upload New Students List</a>
                         </li>
                         <li>
                             <a href="http://mvgrexamcell.pythonanywhere.com/admin"><i class="fa fa-fw fa-envelope"></i>Admin Portal</a>
@@ -154,13 +201,13 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#demoStudents"><i class="fa fa-fw fa-arrows-v"></i> Students <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demoStudents" class="collapse">
                             <li>
-                                <a href="promote.html">Promote/Demote Students</a>
+                                <a href="javascript:promote_open()">Promote/Demote Students</a>
                             </li>
                             <li>
-                                <a href="upload_registered_students.html">Upload List</a>
+                                <a href="javascript:register_list_open()">Upload List</a>
                             </li>
 							<li>
-                                <a href="remove_registered_students.html">Remove List</a>
+                                <a href="javascript:remove_list_open()">Remove List</a>
                             </li>
                         </ul>
                     </li>
@@ -168,7 +215,7 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#demoFaculty"><i class="fa fa-fw fa-arrows-v"></i> Faculty <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demoFaculty" class="collapse">
 							<li>
-                                <a href="upload_faculty_timetable.html">Upload Faculty Timetable</a>
+                                <a href="javascript:faculty_timetable_open()">Upload Faculty Timetable</a>
                             </li>
                         </ul>
                     </li>
@@ -182,7 +229,7 @@
                                 <a href="load_old_plan.html">Load Previous Plan</a>
                             </li>
 			    <li>
-                                <a href="view_invigilation_status.html">View Invigilation Status</a>
+                                <a href="javascript:invigilation_status_open()">View Invigilation Status</a>
                             </li>
                         </ul>
                     </li>
@@ -190,10 +237,10 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#demoTimetable"><i class="fa fa-fw fa-arrows-v"></i> Timetable <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demoTimetable" class="collapse">
                             <li>
-                                <a href="upload_timetable.html">Upload Timetable</a>
+                                <a href="javascript:timetable_open()">Upload Timetable</a>
                             </li>
                             <li>
-                                <a href="remove_timetable.html">Remove Timetable</a>
+                                <a href="javascript:remove_timetable_open()">Remove Timetable</a>
                             </li>
                         </ul>
                     </li>
