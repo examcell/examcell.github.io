@@ -9,6 +9,12 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+	<!-- date picker imports -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <!-- date picker imports ENDS-->
+
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -26,42 +32,51 @@
 		Examination
 		<span class="caret"></span>
 	  </button>
-	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-		<li><a href="#">Action</a></li>
-		<li><a href="#">Another action</a></li>
-		<li><a href="#">Something else here</a></li>
+	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="exams">
+		
 	  </ul>
 	</div>
 	&nbsp; &nbsp; &nbsp;
 	<div class="dropdown" style="display: inline-block;">
-	  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-		Date
-		<span class="caret"></span>
-	  </button>
-	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-		<li><a href="#">Action</a></li>
-		<li><a href="#">Another action</a></li>
-		<li><a href="#">Something else here</a></li>
-	  </ul>
+	  <div><label> Date :</label>&nbsp;<input type="text" id="datepicker" /></div> 
 	</div>
 	&nbsp; &nbsp; &nbsp;
 	<div class="dropdown" style="display: inline-block;">
-	  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+	  <div class="dropdown" style="display: inline-block;"><button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 		Time
 		<span class="caret"></span>
 	  </button>
 	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-		<li><a href="#">Action</a></li>
-		<li><a href="#">Another action</a></li>
-		<li><a href="#">Something else here</a></li>
+		<script>
+			var x = 8;
+                        for(x = 8;x<=18;x++){
+				document.write("<li><a href=\"#\">" + x  +" : 00 </a></li>");
+				document.write("<li><a href=\"#\">" + x  +" : 30 </a></li>");
+			}
+		</script>
 	  </ul>
+		
+	  </div>
 	</div>
 	<br><br>
 	<button type="button" class="btn btn-info">View</button>
 	</center>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/site.js"></script>
+    <script type="text/javascript">
+      	$(document).ready(function(){
+	    $.getJSON(url_link+"/api/get_examinations/",
+                    function (data) {
+			$.each(data, function (index, element) {
+				$('#exams').append(
+                                "<li><a href=\"#\">" + element.examination_name +"</a></li>"
+                            );
+			});	
+                    });
+		$("#datepicker").datepicker();
+	});
+   </script> 
   </body>
 </html>

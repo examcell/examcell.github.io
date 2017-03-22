@@ -9,13 +9,7 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-	<!-- date picker imports -->
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-    <!-- date picker imports ENDS-->
-
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -27,53 +21,38 @@
 	<br><br><br>
 	<center>
     <div class="container-fluid">
-    <br>
-    <div class="page-header">
-		  <h1>Create New Plan</h1>
-		</div>
     <div class="dropdown" style="display: inline-block;">
 	  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-		Examination
+		Classrooms
 		<span class="caret"></span>
 	  </button>
 	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="exams">
 		
 	  </ul>
 	</div>
-	&nbsp; &nbsp; &nbsp;
-	<div class="dropdown" style="display: inline-block;">
-	  <div><label> Date :</label>&nbsp;<input type="text" id="datepicker" /></div> 
+	<div id="display">
+
 	</div>
-	&nbsp; &nbsp; &nbsp;
-	<div class="dropdown" style="display: inline-block;">
-	  <div class="dropdown" style="display: inline-block;"><button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-		Time
-		<span class="caret"></span>
-	  </button>
-	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="time">
-		
-	  </ul>
-		
-	  </div>
 	</div>
 	<br><br>
-	<button type="button" class="btn btn-info" onClick="isArranged()">Load</button>
 	</center>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/site.js"></script>
-    <script type="text/javascript">
+    <script>
       	$(document).ready(function(){
-	    $.getJSON(url_link+"/api/get_examinations/",
-                    function (data) {
-			$.each(data, function (index, element) {
-				$('#exams').append(
-                                "<li><a href=\"javascript:getExaminationTiming('"+element.id+"')\">" + element.examination_name +"</a></li>"
-                            );
-			});	
-                    });
-		$("#datepicker").datepicker();
+	    theUrl = window.location.href;
+	    url = theUrl.split('?');
+	    elements = url[1].split('&');
+	    obj = elements[0].split('=');
+	    exam_id = obj[1];
+	    obj = elements[1].split('=');
+	    date = obj[1];
+            obj = elements[2].split('=');
+	    time = obj[1];
+	    retrieveClassrooms(exam_id,date,time);
+	    
 	});
    </script> 
   </body>

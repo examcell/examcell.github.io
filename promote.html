@@ -26,10 +26,8 @@
 		Departments
 		<span class="caret"></span>
 	  </button>
-	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-		<li><a href="#">Action</a></li>
-		<li><a href="#">Another action</a></li>
-		<li><a href="#">Something else here</a></li>
+	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="department">
+		
 	  </ul>
 	</div>
 	&nbsp; &nbsp; &nbsp;
@@ -39,10 +37,10 @@
 		<span class="caret"></span>
 	  </button>
 	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-		<li><a href="#">1</a></li>
-		<li><a href="#">2</a></li>
-		<li><a href="#">3</a></li>
-		<li><a href="#">4</a></li>
+		<li><a href="javascript:setYear('1')">1</a></li>
+		<li><a href="javascript:setYear('2')">2</a></li>
+		<li><a href="javascript:setYear('3')">3</a></li>
+		<li><a href="javascript:setYear('4')">4</a></li>
 	  </ul>
 	</div>
 	&nbsp; &nbsp; &nbsp;
@@ -52,19 +50,87 @@
 		<span class="caret"></span>
 	  </button>
 	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu3"> 
-		<li><a href="#">1</a></li>
-		<li><a href="#">2</a></li>
+		<li><a href="javascript:setSem('1')">1</a></li>
+		<li><a href="javascript:setSem('2')">2</a></li>
 	  </ul>
 	</div>
 	</div>
 	<br><br>
-	<button type="button" class="btn btn-success">Promote</button>
+	<button type="button" class="btn btn-success" onClick="javascript:doOperation(1)">Promote</button>
 	&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-	<button type="button" class="btn btn-danger">Demote</button>
+	<button type="button" class="btn btn-danger" onClick="javascript:doOperation(2)">Demote</button>
 	</center>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/site.js"></script>
+    <script type="text/javascript">
+	var dept = null;
+	var year = null;
+	var sem  = null;
+      	$(document).ready(function(){
+	    $.getJSON(url_link+"/api/get_departments/",
+                    function (data) {
+			$.each(data, function (index, element) {
+				$('#department').append(
+                                "<li><a href=\"javascript:setDept('"+element.name+"')\">" + element.name +"</a></li>"
+                            );
+			});	
+                    });
+	});
+	function setDept(department)
+	{
+		dept = department;
+	}
+	function setYear(yr)
+	{
+		year = yr;
+	}
+	function setSem(semester)
+	{
+		sem =semester;
+	}
+	function doOperation(operation)
+	{
+		if(dept == null){
+			alert('Select Department');
+			return;
+		}
+		else if(year == null){
+			alert('Select Year');
+			return;
+		}
+		else if(sem == null){
+			alert('Select Semester');
+			return;
+		}
+		url = null;
+		switch(operation)
+		{
+		case 1:
+			url = url_link + "/api/promote/";
+			break;
+		case 2:
+			url = url_link + "/api/demote/";
+			break;
+		}
+		
+		$.ajax({
+                 type:"POST",
+                 url:url,
+                 data: {
+                        department : dept,
+		    year : year,
+	            semester : sem
+                        },
+                 success: function(){
+                     window.opener = self;
+    		     window.close();
+                 }
+            });
+			
+	}
+   </script> 
   </body>
 </html>

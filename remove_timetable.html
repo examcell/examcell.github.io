@@ -26,19 +26,30 @@
 		Examination
 		<span class="caret"></span>
 	  </button>
-	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-		<li><a href="#">Action</a></li>
-		<li><a href="#">Another action</a></li>
-		<li><a href="#">Something else here</a></li>
+	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="exams">
+		
 	  </ul>
 	</div>
 	</div>
 	<br><br>
-	<button type="button" class="btn btn-danger">Remove</button>
+	<button type="button" class="btn btn-danger" onClick="javascript:removeTimetable()">Remove</button>
 	</center>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/site.js"></script>
+    <script type="text/javascript">
+      	$(document).ready(function(){
+	    $.getJSON(url_link+"/api/get_examinations/",
+                    function (data) {
+			$.each(data, function (index, element) {
+				$('#exams').append(
+                                "<li><a href=\"javascript:setExamId('"+element.id+"')\">" + element.examination_name +"</a></li>"
+                            );
+			});	
+                    });
+	});
+   </script> 
   </body>
 </html>

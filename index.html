@@ -71,6 +71,18 @@
 		popupWindow =window.open('view_invigilation_status.html',"_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=900, height=350,top=200,left=200");
 
 		}
+		function create_plan_open()
+		{ 
+
+		popupWindow =window.open('create_new_plan.html',"_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=900, height=350,top=200,left=200");
+
+		}
+  		function old_plan_open()
+		{ 
+
+		popupWindow =window.open('load_old_plan.html',"_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=900, height=350,top=200,left=200");
+
+		}
 		function parent_disable() {
 		if(popupWindow && !popupWindow.closed)
 		popupWindow.focus();
@@ -223,10 +235,10 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#demoExamination"><i class="fa fa-fw fa-arrows-v"></i> Examination <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demoExamination" class="collapse">
                             <li>
-                                <a href="create_new_plan.html">Create New Plan</a>
+                                <a href="javascript:create_plan_open()">Create New Plan</a>
                             </li>
                             <li>
-                                <a href="load_old_plan.html">Load Previous Plan</a>
+                                <a href="javascript:old_plan_open()">Load Previous Plan</a>
                             </li>
 			    <li>
                                 <a href="javascript:invigilation_status_open()">View Invigilation Status</a>
@@ -278,9 +290,7 @@
     <script src="js/bootstrap.min.js"></script>
 
     <!-- Morris Charts JavaScript -->
-    <script src="js/plugins/morris/raphael.min.js"></script>
-    <script src="js/plugins/morris/morris.min.js"></script>
-    <script src="js/plugins/morris/morris-data.js"></script>
+    
 
 </body>
 

@@ -9,6 +9,14 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		div.absolute {
+		    position: absolute;
+		    left: 70px;
+		 
+		 
+		}
+	</style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -19,36 +27,39 @@
   </head>
   <body>
 	<br><br><br>
-	<center>
-    <div class="container-fluid">
-    <div class="dropdown" style="display: inline-block;">
-	  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-		Examination
-		<span class="caret"></span>
-	  </button>
-	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="exams">
-		
-	  </ul>
-	</div>
-	</div>
+	
+ 	<div class="container-fluid">
+ 	   <div class="page-header">
+		<h2>Classroom Capacity : <label id="capacity"></label></h2>
+ 	   </div>
+	   <div class="page-header">
+		<h2>Drawing Hall Capacity : <label id="dhcapacity"></label></h2>
+ 	   </div>
+	   <div class="absolute" id="cls_list" style="width:400px">
+	   </div>
+
 	<br><br>
-	<button type="button" class="btn btn-danger" onClick="javascript:removeRegisterStudents()">Remove</button>
-	</center>
+		
+ 	</div>
+	
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/site.js"></script>
     <script type="text/javascript">
       	$(document).ready(function(){
-	    $.getJSON(url_link+"/api/get_examinations/",
-                    function (data) {
-			$.each(data, function (index, element) {
-				$('#exams').append(
-                                "<li><a href=\"javascript:setExamId('"+element.id+"')\">" + element.examination_name +"</a></li>"
-                            );
-			});	
-                    });
+	    theUrl = window.location.href;
+	    url = theUrl.split('?');
+	    elements = url[1].split('&');
+	    obj = elements[0].split('=');
+	    exam_id = obj[1];
+	    obj = elements[1].split('=');
+	    date = obj[1];
+            obj = elements[2].split('=');
+	    time = obj[1];
+	    getCapacity(exam_id,date,time);
+	    getClassrooms(exam_id,date,time);	
 	});
    </script> 
   </body>

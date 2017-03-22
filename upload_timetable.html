@@ -16,6 +16,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
   </head>
   <body>
 	<br>
@@ -24,13 +25,13 @@
 	  <h1>Upload Timetable</h1>
 	</div>
 	<center>
-	<form action="" method="post" onSubmit="sendFile();" id="upload">
+	<form id="upload">
 				
 			<label class="btn btn-default btn-file">
-					Browse <input type="file" id="file" name="file" style="display: none;">
+					Timetable<input type="file" id="file" name="file">
 			</label>
 			<br><br>
-			<button type="submit" class="btn btn-success" id="submit">Submit</button>
+			<button type="button" class="btn btn-success" id="submit" onClick="sendTimetable();">Submit</button>
 			
 		</form>
 	</center>
@@ -39,5 +40,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+<script src="js/site.js"></script>
   </body>
 </html>
