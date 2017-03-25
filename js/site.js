@@ -345,11 +345,65 @@ function room36(classroom)
 				if(index_1 == 0)
 					index_2++;
 			});	
-			while(index_1 == 6)
-				student_list[index_1++][index_2] = ' ';
 			print_script = "<table width=\"100%\">";
 			for(i=0;i<6;i++)
 				print_script += "<tr><td>"+student_list[i][0]+"</td><td>"+student_list[i][1]+"</td><td>"+student_list[i][2]+"</td><td>"+student_list[i][3]+"</td><td>"+student_list[i][4]+"</td><td>"+student_list[i][5]+"</td></tr>";
+			print_script += "</table>";
+			$('#display').html(print_script);
+
+                    });
+}
+function room56(classroom)
+{
+	student_list = new Array();
+	for(i=0;i<14;i++)
+	 student_list[i] = new Array();
+	date_array = date.split("/");
+	time_array = time.split(":");
+	link = url_link+"/api/studentsClassroom/" + exam_id + "/" + date_array[2] + "/" + date_array[0] + "/" + date_array[1] + "/" + time_array[0] + "/" + time_array[1] + "/" + classroom + "/" ;
+	    $.getJSON(link,
+                    function (data) {
+			index_1 = 0;
+			
+			index_2 = 0;
+			$.each(data.student_list, function (index, element) {
+				regno = element.regno;
+				student_list[index_1][index_2] = regno;
+				index_1 = (index_1 + 1)%6;
+				if(index_1 == 0)
+					index_2++;
+			});	
+			print_script = "<table width=\"100%\">";
+			for(i=0;i<14;i++)
+				print_script += "<tr><td>"+student_list[i][0]+"</td><td>"+student_list[i][1]+"</td><td>"+student_list[i][2]+"</td><td>"+student_list[i][3]+"</td><td>"+student_list[i][4]+"</td><td>"+student_list[i][5]+"</td></tr>";
+			print_script += "</table>";
+			$('#display').html(print_script);
+
+                    });
+}
+function room24(classroom)
+{
+	student_list = new Array();
+	for(i=0;i<6;i++)
+	 student_list[i] = new Array();
+	date_array = date.split("/");
+	time_array = time.split(":");
+	link = url_link+"/api/studentsClassroom/" + exam_id + "/" + date_array[2] + "/" + date_array[0] + "/" + date_array[1] + "/" + time_array[0] + "/" + time_array[1] + "/" + classroom + "/" ;
+	    $.getJSON(link,
+                    function (data) {
+			index_1 = 0;
+			
+			index_2 = 0;
+			$.each(data.student_list, function (index, element) {
+				regno = element.regno;
+				student_list[index_1][index_2] = regno;
+				index_1 = (index_1 + 1)%6;
+				if(index_1 == 0)
+					index_2++;
+			});	
+			print_script = "<table width=\"100%\">";
+			for(i=0;i<6;i++)
+				print_script += "<tr><td>"+student_list[i][0]+"</td><td>"+student_list[i][1]+"</td><td>"+"<empty>"+"</td><td>"+"<empty>"+"</td><td>"+student_list[i][4]+"</td><td>"+student_list[i][5]+"</td></tr>";
 			print_script += "</table>";
 			$('#display').html(print_script);
 
@@ -386,5 +440,10 @@ function isArranged()
 function generateHallPlan(size,classroom)
 {
 	alert(size);
-	room36(classroom);
+	if(size == 36)
+		room36(classroom);
+	else if(size == 24)
+		room24(classroom);
+	else if(size == 56)
+		room56(classroom);
 }
