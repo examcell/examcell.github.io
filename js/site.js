@@ -369,7 +369,7 @@ function room56(classroom)
 			$.each(data.student_list, function (index, element) {
 				regno = element.regno;
 				student_list[index_1][index_2] = regno;
-				index_1 = (index_1 + 1)%12;
+				index_1 = (index_1 + 1)%14;
 				if(index_1 == 0)
 					index_2++;
 			});	
