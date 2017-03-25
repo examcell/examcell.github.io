@@ -1,7 +1,7 @@
 // using jQuery
-url1 = 'http://bhargavreddi.pythonanywhere.com';
+url1 = 'https://mvgrexamcell.pythonanywhere.com';
 url2 = 'http://127.0.0.1:8000';
-url_link = url2;
+url_link = url1;
 exam_id = null;
 time = null;
 date = null;
