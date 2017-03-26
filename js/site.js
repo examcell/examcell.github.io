@@ -340,6 +340,10 @@ function room36(classroom)
 			index_2 = 0;
 			$.each(data.student_list, function (index, element) {
 				regno = element.regno;
+				if(regno == "100"){
+					student_list[index_1][index_2] = "Left Empty";	
+					continue;
+				}
 				student_list[index_1][index_2] = regno;
 				index_1 = (index_1 + 1)%6;
 				if(index_1 == 0)
@@ -368,6 +372,10 @@ function room56(classroom)
 			index_2 = 0;
 			$.each(data.student_list, function (index, element) {
 				regno = element.regno;
+				if(regno == "100"){
+					student_list[index_1][index_2] = "Left Empty";	
+					continue;
+				}
 				student_list[index_1][index_2] = regno;
 				index_1 = (index_1 + 1)%14;
 				if(index_1 == 0)
@@ -396,6 +404,10 @@ function room24(classroom)
 			index_2 = 0;
 			$.each(data.student_list, function (index, element) {
 				regno = element.regno;
+				if(regno == "100"){
+					student_list[index_1][index_2] = "Left Empty";	
+					continue;
+				}
 				student_list[index_1][index_2] = regno;
 				index_1 = (index_1 + 1)%6;
 				if(index_1 == 0)
