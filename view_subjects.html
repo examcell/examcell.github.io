@@ -29,17 +29,13 @@
 	<br><br><br>
 	
  	<div class="container-fluid">
-	   <div>
- 	   <button type="button" class="btn btn-success" onClick="javascript:openHallPlan()">Hall Plan</button>
-	   </div>
-		<br><br><br>
-	   <div>
- 	   <button type="button" class="btn btn-success" onClick="javascript:isSetAllocated(exam_id,date,time)">Seating Plan</button>
-	   </div>
-		<br><br><br>
-	   <div>
- 	   <button type="button" class="btn btn-success">DForm</button>
-	   </div>
+ 	   <div class="page-header">
+		<h2>Classroom Capacity : <label id="capacity"></label></h2>
+ 	   </div>
+	   <div class="page-header">
+		<h2>Drawing Hall Capacity : <label id="dhcapacity"></label></h2>
+ 	   </div>
+	   <div class="absolute" id="cls_list" style="width:400px">
 	   </div>
 
 	<br><br>
@@ -52,15 +48,6 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/site.js"></script>
     <script type="text/javascript">
-	var popupWindow=null;
-	function parent_disable() {
-		if(popupWindow && !popupWindow.closed)
-		popupWindow.focus();
-		}
-	function openHallPlan()
-	{
-		popupWindow =window.open("hallplan.html?exam_id="+exam_id+"&date="+date+"&time="+time,"_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=900, height=350,top=200,left=200");
-	}
       	$(document).ready(function(){
 	    theUrl = window.location.href;
 	    url = theUrl.split('?');
@@ -71,7 +58,8 @@
 	    date = obj[1];
             obj = elements[2].split('=');
 	    time = obj[1];
-	    alert(date);
+	    getCapacity(exam_id,date,time);
+	    getClassrooms(exam_id,date,time);	
 	});
    </script> 
   </body>

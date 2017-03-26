@@ -1,7 +1,7 @@
 // using jQuery
 url1 = 'https://mvgrexamcell.pythonanywhere.com';
 url2 = 'http://127.0.0.1:8000';
-url_link = url1;
+url_link = url2;
 exam_id = null;
 time = null;
 date = null;
@@ -342,8 +342,9 @@ function room36(classroom)
 				regno = element.regno;
 				if(regno == "100"){
 					student_list[index_1][index_2] = "Left Empty";	
-					continue;
+					
 				}
+				else
 				student_list[index_1][index_2] = regno;
 				index_1 = (index_1 + 1)%6;
 				if(index_1 == 0)
@@ -374,8 +375,9 @@ function room56(classroom)
 				regno = element.regno;
 				if(regno == "100"){
 					student_list[index_1][index_2] = "Left Empty";	
-					continue;
+					
 				}
+				else
 				student_list[index_1][index_2] = regno;
 				index_1 = (index_1 + 1)%14;
 				if(index_1 == 0)
@@ -406,8 +408,9 @@ function room24(classroom)
 				regno = element.regno;
 				if(regno == "100"){
 					student_list[index_1][index_2] = "Left Empty";	
-					continue;
+					
 				}
+				else
 				student_list[index_1][index_2] = regno;
 				index_1 = (index_1 + 1)%6;
 				if(index_1 == 0)
@@ -449,6 +452,16 @@ function isArranged()
 			alert('No Exams Scheduled');
                     });
 }
+function isSetAllocated(exam_id,date,time)
+{
+	date_array = date.split("/");
+	time_array = time.split(":");
+	link = url_link+"/api/isSetAllocated/" + exam_id + "/" + date_array[2] + "/" + date_array[0] + "/" + date_array[1] + "/" + time_array[0] + "/" + time_array[1] + "/";
+	$.getJSON(link,
+                    function (data) {
+			alert(data.status);
+                    });
+}
 function generateHallPlan(size,classroom)
 {
 	alert(size);
@@ -458,4 +471,19 @@ function generateHallPlan(size,classroom)
 		room24(classroom);
 	else if(size == 56)
 		room56(classroom);
+}
+function setSubjects(exam_id,date,time)
+{
+	date_array = date.split("/");
+	time_array = time.split(":");
+	link = url_link+"/api/retreiveSubjects/" + exam_id + "/" + date_array[2] + "/" + date_array[0] + "/" + date_array[1] + "/" + time_array[0] + "/" + time_array[1] + "/";
+	    $.getJSON(link,
+                    function (data) {
+			$.each(data.subject_list, function (index, element) {
+				$('#subjects').append("<li><a href=\"javascript:generateSeatingPlan('"+element.subject_code+"','"+element.subject_name+"')\">" + element.subject_code + "    " +element.subject_name +"</a></li>");
+			});	
+                    });
+}
+function generateSeatingPlan(size,classroom)
+{
 }

@@ -9,15 +9,7 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-	<style>
-		div.absolute {
-		    position: absolute;
-		    left: 70px;
-		 
-		 
-		}
-	</style>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -27,40 +19,28 @@
   </head>
   <body>
 	<br><br><br>
-	
- 	<div class="container-fluid">
-	   <div>
- 	   <button type="button" class="btn btn-success" onClick="javascript:openHallPlan()">Hall Plan</button>
-	   </div>
-		<br><br><br>
-	   <div>
- 	   <button type="button" class="btn btn-success" onClick="javascript:isSetAllocated(exam_id,date,time)">Seating Plan</button>
-	   </div>
-		<br><br><br>
-	   <div>
- 	   <button type="button" class="btn btn-success">DForm</button>
-	   </div>
-	   </div>
-
-	<br><br>
+	<center>
+    <div class="container-fluid">
+    <div class="dropdown" style="display: inline-block;">
+	  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+		Classrooms
+		<span class="caret"></span>
+	  </button>
+	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="subjects">
 		
- 	</div>
-	
+	  </ul>
+	</div>
+	<div id="display">
+
+	</div>
+	</div>
+	<br><br>
+	</center>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/site.js"></script>
-    <script type="text/javascript">
-	var popupWindow=null;
-	function parent_disable() {
-		if(popupWindow && !popupWindow.closed)
-		popupWindow.focus();
-		}
-	function openHallPlan()
-	{
-		popupWindow =window.open("hallplan.html?exam_id="+exam_id+"&date="+date+"&time="+time,"_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=900, height=350,top=200,left=200");
-	}
+    <script>
       	$(document).ready(function(){
 	    theUrl = window.location.href;
 	    url = theUrl.split('?');
@@ -71,7 +51,8 @@
 	    date = obj[1];
             obj = elements[2].split('=');
 	    time = obj[1];
-	    alert(date);
+	    retrieveSubjects(exam_id,date,time);
+	    
 	});
    </script> 
   </body>
