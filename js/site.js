@@ -347,7 +347,7 @@ function room36(classroom)
 			});	
 			print_script = "<table width=\"100%\">";
 			for(i=0;i<6;i++)
-				print_script += "<tr><td>"+student_list[i][0]+"</td><td>"+student_list[i][1]+"</td><td>"+student_list[i][2]+"</td><td>"+student_list[i][3]+"</td><td>"+student_list[i][4]+"</td><td>"+student_list[i][5]+"</td></tr>";
+				print_script += "<tr><td>"+student_list[i][0]+"</td><td>"+student_list[i][1]+"</td><td></td><td>"+student_list[i][2]+"</td><td>"+student_list[i][3]+"</td><td></td><td>"+student_list[i][4]+"</td><td>"+student_list[i][5]+"</td></tr>";
 			print_script += "</table>";
 			$('#display').html(print_script);
 
@@ -375,7 +375,7 @@ function room56(classroom)
 			});	
 			print_script = "<table width=\"100%\">";
 			for(i=0;i<14;i++)
-				print_script += "<tr><td>"+student_list[i][0]+"</td><td>"+student_list[i][1]+"</td><td>"+student_list[i][2]+"</td><td>"+student_list[i][3]+"</td><td>"+student_list[i][4]+"</td><td>"+student_list[i][5]+"</td></tr>";
+				print_script += "<tr><td>"+student_list[i][0]+"</td><td></td><td>"+student_list[i][1]+"</td><td></td><td>"+student_list[i][2]+"</td><td></td><td>"+student_list[i][3]+"</td></tr>";
 			print_script += "</table>";
 			$('#display').html(print_script);
 
@@ -403,7 +403,7 @@ function room24(classroom)
 			});	
 			print_script = "<table width=\"100%\">";
 			for(i=0;i<6;i++)
-				print_script += "<tr><td>"+student_list[i][0]+"</td><td>"+student_list[i][1]+"</td><td>"+"<empty>"+"</td><td>"+"<empty>"+"</td><td>"+student_list[i][4]+"</td><td>"+student_list[i][5]+"</td></tr>";
+				print_script += "<tr><td>"+student_list[i][0]+"</td><td>"+student_list[i][1]+"</td><td></td><td></td><td></td><td></td><td>"+student_list[i][2]+"</td><td>"+student_list[i][3]+"</td></tr>";
 			print_script += "</table>";
 			$('#display').html(print_script);
 
