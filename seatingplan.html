@@ -26,7 +26,7 @@
 		Classrooms
 		<span class="caret"></span>
 	  </button>
-	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="subjects">
+	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="exams">
 		
 	  </ul>
 	</div>
@@ -51,7 +51,7 @@
 	    date = obj[1];
             obj = elements[2].split('=');
 	    time = obj[1];
-	    retrieveSubjects(exam_id,date,time);
+	    retrieveClassrooms(exam_id,date,time,true);
 	    
 	});
    </script> 

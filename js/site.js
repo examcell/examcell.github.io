@@ -1,7 +1,7 @@
 // using jQuery
 url1 = 'https://mvgrexamcell.pythonanywhere.com';
 url2 = 'http://127.0.0.1:8000';
-url_link = url2;
+url_link = url1;
 exam_id = null;
 time = null;
 date = null;
@@ -313,7 +313,7 @@ function getClassrooms(exam_id,date,time)
 			$('#cls_list').append("<br><br><div><button type=\"button\" class=\"btn btn-success\" id=\"submit\" onClick=\"sendClassrooms(exam_id,date,time);\">Next</button></div><br><br>");
                     });
 }
-function retrieveClassrooms(exam_id,date,time)
+function retrieveClassrooms(exam_id,date,time,flag)
 {
 	date_array = date.split("/");
 	time_array = time.split(":");
@@ -321,15 +321,21 @@ function retrieveClassrooms(exam_id,date,time)
 	    $.getJSON(link,
                     function (data) {
 			$.each(data.classroom_list, function (index, element) {
+				if(!flag)
 				$('#exams').append("<li><a href=\"javascript:generateHallPlan('"+element.size+"','"+element.classroom+"')\">" + element.classroom +"</a></li>");
+				else
+				$('#exams').append("<li><a href=\"javascript:generateSeatingPlan('"+element.size+"','"+element.classroom+"')\">" + element.classroom +"</a></li>");
 			});	
                     });
 }
-function room36(classroom)
+function room36(classroom,flag)
 {
 	student_list = new Array();
-	for(i=0;i<6;i++)
+	set_list = new Array();
+	for(i=0;i<6;i++){
 	 student_list[i] = new Array();
+	  set_list[i] = new Array();
+	}
 	date_array = date.split("/");
 	time_array = time.split(":");
 	link = url_link+"/api/studentsClassroom/" + exam_id + "/" + date_array[2] + "/" + date_array[0] + "/" + date_array[1] + "/" + time_array[0] + "/" + time_array[1] + "/" + classroom + "/" ;
@@ -340,29 +346,37 @@ function room36(classroom)
 			index_2 = 0;
 			$.each(data.student_list, function (index, element) {
 				regno = element.regno;
+				set_number = element.set_number;
 				if(regno == "100"){
 					student_list[index_1][index_2] = "Left Empty";	
-					
+					set_list[index_1][index_2] = "None";
 				}
 				else
 				student_list[index_1][index_2] = regno;
+				set_list[index_1][index_2] = set_number;
 				index_1 = (index_1 + 1)%6;
 				if(index_1 == 0)
 					index_2++;
 			});	
 			print_script = "<table width=\"100%\">";
-			for(i=0;i<6;i++)
+			for(i=0;i<6;i++){
 				print_script += "<tr><td>"+student_list[i][0]+"</td><td>"+student_list[i][1]+"</td><td></td><td>"+student_list[i][2]+"</td><td>"+student_list[i][3]+"</td><td></td><td>"+student_list[i][4]+"</td><td>"+student_list[i][5]+"</td></tr>";
+				if(flag)
+				print_script += "<tr><td>"+set_list[i][0]+"</td><td>"+set_list[i][1]+"</td><td></td><td>"+set_list[i][2]+"</td><td>"+set_list[i][3]+"</td><td></td><td>"+set_list[i][4]+"</td><td>"+set_list[i][5]+"</td></tr>";
+			}
 			print_script += "</table>";
 			$('#display').html(print_script);
 
                     });
 }
-function room56(classroom)
+function room56(classroom,flag)
 {
 	student_list = new Array();
-	for(i=0;i<14;i++)
+	set_list = new Array();
+	for(i=0;i<14;i++){
 	 student_list[i] = new Array();
+	  set_list[i] = new Array();
+	}
 	date_array = date.split("/");
 	time_array = time.split(":");
 	link = url_link+"/api/studentsClassroom/" + exam_id + "/" + date_array[2] + "/" + date_array[0] + "/" + date_array[1] + "/" + time_array[0] + "/" + time_array[1] + "/" + classroom + "/" ;
@@ -373,29 +387,37 @@ function room56(classroom)
 			index_2 = 0;
 			$.each(data.student_list, function (index, element) {
 				regno = element.regno;
+				set_number = element.set_number;
 				if(regno == "100"){
 					student_list[index_1][index_2] = "Left Empty";	
-					
+					set_list[index_1][index_2] = "None";
 				}
 				else
 				student_list[index_1][index_2] = regno;
+				set_list[index_1][index_2] = set_number;
 				index_1 = (index_1 + 1)%14;
 				if(index_1 == 0)
 					index_2++;
 			});	
 			print_script = "<table width=\"100%\">";
-			for(i=0;i<14;i++)
+			for(i=0;i<14;i++){
 				print_script += "<tr><td>"+student_list[i][0]+"</td><td></td><td>"+student_list[i][1]+"</td><td></td><td>"+student_list[i][2]+"</td><td></td><td>"+student_list[i][3]+"</td></tr>";
+				if(flag)
+				print_script += "<tr><td>"+set_list[i][0]+"</td><td></td><td>"+set_list[i][1]+"</td><td></td><td>"+set_list[i][2]+"</td><td></td><td>"+set_list[i][3]+"</td></tr>";
+			}
 			print_script += "</table>";
 			$('#display').html(print_script);
 
                     });
 }
-function room24(classroom)
+function room24(classroom,flag)
 {
 	student_list = new Array();
-	for(i=0;i<6;i++)
+	set_list = new Array();
+	for(i=0;i<6;i++){
 	 student_list[i] = new Array();
+	 set_list[i] = new Array(); 
+	}
 	date_array = date.split("/");
 	time_array = time.split(":");
 	link = url_link+"/api/studentsClassroom/" + exam_id + "/" + date_array[2] + "/" + date_array[0] + "/" + date_array[1] + "/" + time_array[0] + "/" + time_array[1] + "/" + classroom + "/" ;
@@ -406,19 +428,24 @@ function room24(classroom)
 			index_2 = 0;
 			$.each(data.student_list, function (index, element) {
 				regno = element.regno;
+				set_number = element.set_number;
 				if(regno == "100"){
 					student_list[index_1][index_2] = "Left Empty";	
-					
+					set_list[index_1][index_2] = "None";
 				}
 				else
 				student_list[index_1][index_2] = regno;
+				set_list[index_1][index_2] = set_number;
 				index_1 = (index_1 + 1)%6;
 				if(index_1 == 0)
 					index_2++;
 			});	
 			print_script = "<table width=\"100%\">";
-			for(i=0;i<6;i++)
+			for(i=0;i<6;i++){
 				print_script += "<tr><td>"+student_list[i][0]+"</td><td>"+student_list[i][1]+"</td><td></td><td></td><td></td><td></td><td>"+student_list[i][2]+"</td><td>"+student_list[i][3]+"</td></tr>";
+				if(flag)
+				print_script += "<tr><td>"+set_list[i][0]+"</td><td>"+set_list[i][1]+"</td><td></td><td></td><td></td><td></td><td>"+set_list[i][2]+"</td><td>"+set_list[i][3]+"</td></tr>";
+			}
 			print_script += "</table>";
 			$('#display').html(print_script);
 
@@ -464,15 +491,14 @@ function isSetAllocated(exam_id,date,time)
 }
 function generateHallPlan(size,classroom)
 {
-	alert(size);
 	if(size == 36)
-		room36(classroom);
+		room36(classroom,false);
 	else if(size == 24)
-		room24(classroom);
+		room24(classroom,false);
 	else if(size == 56)
-		room56(classroom);
+		room56(classroom,false);
 }
-function setSubjects(exam_id,date,time)
+function getSubjects(exam_id,date,time)
 {
 	date_array = date.split("/");
 	time_array = time.split(":");
@@ -480,10 +506,66 @@ function setSubjects(exam_id,date,time)
 	    $.getJSON(link,
                     function (data) {
 			$.each(data.subject_list, function (index, element) {
-				$('#subjects').append("<li><a href=\"javascript:generateSeatingPlan('"+element.subject_code+"','"+element.subject_name+"')\">" + element.subject_code + "    " +element.subject_name +"</a></li>");
+				$('#subjects').append("<tr><td><a href=\"javascript:generateSeatingPlan('"+element.subject_code+"','"+element.subject_name+"')\">" + element.subject_code + "    " +element.subject_name +"</a></td><td><input type=\"number\" placeholder = \"Starting Set\" id=\"start-"+ element.subject_code + "\" value=\""+element.start_set+"\"></td><td><input type=\"number\" placeholder = \"Max Set\" id=\"max-" + element.subject_code + "\" value=\""+element.max_set+"\"></td></tr>");
 			});	
                     });
 }
+function retrieveSubjects(exam_id,date,time)
+{
+	date_array = date.split("/");
+	time_array = time.split(":");
+	link = url_link+"/api/retreiveSubjects/" + exam_id + "/" + date_array[2] + "/" + date_array[0] + "/" + date_array[1] + "/" + time_array[0] + "/" + time_array[1] + "/";
+	    $.getJSON(link,
+                    function (data) {
+			$.each(data.subject_list, function (index, element) {
+				$('#subjects').append("<li><a href=\"javascript:generateDform('"+element.subject_code+"','"+element.subject_name+"')\">" + element.subject_code + "    " +element.subject_name +"</a></li>");
+			});	
+                    });
+}
+function setSubjects(exam_id,date,time)
+{
+	date_array = date.split("/");
+	time_array = time.split(":");
+	link = url_link+"/api/retreiveSubjects/" + exam_id + "/" + date_array[2] + "/" + date_array[0] + "/" + date_array[1] + "/" + time_array[0] + "/" + time_array[1] + "/";	
+	obj = new Object();
+	list = new Array();
+	index_list = 0;
+	    $.getJSON(link,
+                    function (data) {
+			$.each(data.subject_list, function (index, element) {
+				temp = new Object();
+				temp.subject = element.subject_code;
+				temp.max_set = $('#max-'+element.subject_code).val();
+				temp.start_set = $('#start-'+element.subject_code).val();	
+				list[index_list++] = temp;
+			});
+			obj.subjects = list;
+			data = JSON.stringify(obj);
+			date_array = date.split("/");
+			time_array = time.split(":");
+			link = url_link+"/api/setSubjects/" + exam_id + "/" + date_array[2] + "/" + date_array[0] + "/" + date_array[1] + "/" + time_array[0] + "/" + time_array[1] + "/";
+			$.ajax({
+			url: link,
+			type: 'POST',
+			data: data,
+			dataType: "json",
+			contentType: "application/json",
+			success: function(data) {
+				if(data.status == 'success')
+					window.location = "seatingplan.html?exam_id="+exam_id+"&date="+date+"&time="+time;
+				else
+					alert('Failed');
+			}
+			});	
+                    });
+		
+}
 function generateSeatingPlan(size,classroom)
 {
+	if(size == 36)
+		room36(classroom,true);
+	else if(size == 24)
+		room24(classroom,true);
+	else if(size == 56)
+		room56(classroom,true);
 }

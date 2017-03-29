@@ -9,14 +9,6 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-	<style>
-		div.absolute {
-		    position: absolute;
-		    left: 70px;
-		 
-		 
-		}
-	</style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,13 +21,16 @@
 	<br><br><br>
 	
  	<div class="container-fluid">
- 	   <div class="page-header">
-		<h2>Classroom Capacity : <label id="capacity"></label></h2>
- 	   </div>
-	   <div class="page-header">
-		<h2>Drawing Hall Capacity : <label id="dhcapacity"></label></h2>
- 	   </div>
-	   <div class="absolute" id="cls_list" style="width:400px">
+	   <div>
+		<center>
+		<table id="subjects" width="80%">
+			
+		</table>
+		<br><br><br>
+		<div>
+ 		   <button type="button" class="btn btn-success" onClick="javascript:setSubjects(exam_id,date,time)">Next</button>
+	        </div>
+		</center>	
 	   </div>
 
 	<br><br>
@@ -58,8 +53,7 @@
 	    date = obj[1];
             obj = elements[2].split('=');
 	    time = obj[1];
-	    getCapacity(exam_id,date,time);
-	    getClassrooms(exam_id,date,time);	
+	    getSubjects(exam_id,date,time);	
 	});
    </script> 
   </body>
