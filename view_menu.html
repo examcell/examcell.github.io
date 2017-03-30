@@ -34,11 +34,11 @@
 	   </div>
 		<br><br><br>
 	   <div>
- 	   <button type="button" class="btn btn-success" onClick="javascript:isSetAllocated(exam_id,date,time)">Seating Plan</button>
+ 	   <button type="button" class="btn btn-success" onClick="javascript:openSeatingPlan()">Seating Plan</button>
 	   </div>
 		<br><br><br>
 	   <div>
- 	   <button type="button" class="btn btn-success">DForm</button>
+ 	   <button type="button" class="btn btn-success" onClick="javascript:openDform()">DForm</button>
 	   </div>
 	   </div>
 
@@ -60,6 +60,20 @@
 	function openHallPlan()
 	{
 		popupWindow =window.open("hallplan.html?exam_id="+exam_id+"&date="+date+"&time="+time,"_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=900, height=350,top=200,left=200");
+	}
+	function openSeatingPlan()
+	{
+		if(isSetAllocated(exam_id,date,time))
+		popupWindow =window.open("seatingplan.html?exam_id="+exam_id+"&date="+date+"&time="+time,"_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=900, height=350,top=200,left=200");
+		else
+		popupWindow =window.open("view_subjects.html?exam_id="+exam_id+"&date="+date+"&time="+time,"_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=900, height=350,top=200,left=200");
+	}
+	function openDform()
+	{
+		if(isSetAllocated(exam_id,date,time))
+		popupWindow =window.open("dform.html?exam_id="+exam_id+"&date="+date+"&time="+time,"_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=900, height=350,top=200,left=200");
+		else
+		alert("Seating Plan not generated");
 	}
       	$(document).ready(function(){
 	    theUrl = window.location.href;

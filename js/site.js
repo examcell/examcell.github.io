@@ -486,7 +486,10 @@ function isSetAllocated(exam_id,date,time)
 	link = url_link+"/api/isSetAllocated/" + exam_id + "/" + date_array[2] + "/" + date_array[0] + "/" + date_array[1] + "/" + time_array[0] + "/" + time_array[1] + "/";
 	$.getJSON(link,
                     function (data) {
-			alert(data.status);
+						if(data.status == 'true')
+							return true;
+						else
+							return false;
                     });
 }
 function generateHallPlan(size,classroom)
