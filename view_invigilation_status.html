@@ -27,6 +27,10 @@
 	<br><br><br>
 	<center>
     <div class="container-fluid">
+    <br>
+    <div class="page-header">
+		  <h1>View Invigilation</h1>
+		</div>
     <div class="dropdown" style="display: inline-block;">
 	  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 		Examination
@@ -46,32 +50,79 @@
 		Time
 		<span class="caret"></span>
 	  </button>
-	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-		<script>
-			var x = 8;
-                        for(x = 8;x<=18;x++){
-				document.write("<li><a href=\"#\">" + x  +" : 00 </a></li>");
-				document.write("<li><a href=\"#\">" + x  +" : 30 </a></li>");
-			}
-		</script>
-	  </ul>
+	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="time">
 		
+	  </ul>
+	 	
 	  </div>
 	</div>
 	<br><br>
-	<button type="button" class="btn btn-info">View</button>
+	<button type="button" class="btn btn-info" onClick="viewInvigilation()">View</button>
+	<div id="display"></div>
 	</center>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/site.js"></script>
     <script type="text/javascript">
+	function viewInvigilation()
+	{
+	if(exam_id == null)
+	{
+		alert('Select Examination');
+		return;
+	}
+	if(time == null)
+	{
+		alert('Select Time');
+		return;
+	}
+	date = document.getElementById('datepicker').value;
+	if(date == null || date == '')
+	{
+		alert('Select Date');
+		return;
+	}
+	date_array = date.split("/");
+	time_array = time.split(":");
+	$.getJSON(url_link+"/api/isArranged/" + exam_id + "/" + date_array[2] + "/" + date_array[0] + "/" + date_array[1] + "/" + time_array[0] + "/" + time_array[1],
+                    function (data) {
+			if (data.status == 'true')
+			$.getJSON(url_link+"/api/getInvigilationDetails/" + exam_id + "/" + date_array[2] + "/" + date_array[0] + "/" + date_array[1] + "/" + time_array[0] + "/" + time_array[1],
+                    function (data) {
+			print_script = "<table width=\"100%\" id=\"faculty_list\">";
+			
+			$.each(data.faculty_list, function (index, element) {
+				print_script += "<tr><td>"+element.faculty_id+"</td><td>"+element.faculty_name + "</td><td>"+element.classroom+"</td><td id=\""+element.faculty_id+"\">" + element.status + "</td><td><button type=\"button\" class=\"btn btn-warning\" onClick=\"changeInvigilation('"+element.faculty_id+"')\">Change</button></td><td><button type=\"button\" class=\"btn btn-danger\" onClick=\"forceInvigilation('"+element.faculty_id+"')\">Force</button></td></tr>";
+			});
+			print_script += "</table>";
+			$('#display').html(print_script);
+                    });
+			else
+			alert('No Exams Scheduled');
+                    });
+	}
+	function changeInvigilation(id){
+		
+		$.getJSON(url_link+"/api/changeInvigilation/" + exam_id + "/" + date_array[2] + "/" + date_array[0] + "/" + date_array[1] + "/" + time_array[0] + "/" + time_array[1] + "/" + id + "/",
+                    function (element) {
+			$('#'+id).html('CHANGED');
+			$('#faculty_list').append("<tr><td>"+element.faculty_id+"</td><td>"+element.faculty_name + "</td><td>"+element.classroom+"</td><td id=\""+element.faculty_id+"\">" + "PENDING" + "</td><td><button type=\"button\" class=\"btn btn-warning\" onClick=\"changeInvigilation('"+element.faculty_id+"')\">Change</button></td><td><button type=\"button\" class=\"btn btn-danger\" onClick=\"forceInvigilation('"+element.faculty_id+"')\">Force</button></td></tr>");
+	});
+	}		
+	function forceInvigilation(id){
+		$.getJSON(url_link+"/api/forceInvigilation/" + exam_id + "/" + date_array[2] + "/" + date_array[0] + "/" + date_array[1] + "/" + time_array[0] + "/" + time_array[1] + "/" + id + "/",
+                    function (data) {
+				if(data.status == 'success')
+					$('#'+id).html('FORCED');
+                    });
+	}
       	$(document).ready(function(){
 	    $.getJSON(url_link+"/api/get_examinations/",
                     function (data) {
 			$.each(data, function (index, element) {
 				$('#exams').append(
-                                "<li><a href=\"#\">" + element.examination_name +"</a></li>"
+                                "<li><a href=\"javascript:getExaminationTiming('"+element.id+"')\">" + element.examination_name +"</a></li>"
                             );
 			});	
                     });

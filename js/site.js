@@ -5,6 +5,7 @@ url_link = url1;
 exam_id = null;
 time = null;
 date = null;
+regno = null;
 capacity = 0;
 dhcapacity = 0;
 classroom_count = 0;
@@ -347,7 +348,7 @@ function room36(classroom,flag)
 			$.each(data.student_list, function (index, element) {
 				regno = element.regno;
 				set_number = element.set_number;
-				if(regno == "100"){
+				if(regno == "1"){
 					student_list[index_1][index_2] = "Left Empty";	
 					set_list[index_1][index_2] = "None";
 				}
@@ -388,7 +389,7 @@ function room56(classroom,flag)
 			$.each(data.student_list, function (index, element) {
 				regno = element.regno;
 				set_number = element.set_number;
-				if(regno == "100"){
+				if(regno == "1"){
 					student_list[index_1][index_2] = "Left Empty";	
 					set_list[index_1][index_2] = "None";
 				}
@@ -429,7 +430,7 @@ function room24(classroom,flag)
 			$.each(data.student_list, function (index, element) {
 				regno = element.regno;
 				set_number = element.set_number;
-				if(regno == "100"){
+				if(regno == "1"){
 					student_list[index_1][index_2] = "Left Empty";	
 					set_list[index_1][index_2] = "None";
 				}
@@ -479,17 +480,33 @@ function isArranged()
 			alert('No Exams Scheduled');
                     });
 }
-function isSetAllocated(exam_id,date,time)
+function isSetAllocated(exam_id,date,time,flag)
 {
 	date_array = date.split("/");
 	time_array = time.split(":");
 	link = url_link+"/api/isSetAllocated/" + exam_id + "/" + date_array[2] + "/" + date_array[0] + "/" + date_array[1] + "/" + time_array[0] + "/" + time_array[1] + "/";
 	$.getJSON(link,
                     function (data) {
-						if(data.status == 'true')
-							return true;
+						if(data.status.localeCompare('true')== 0)
+							switch(flag)
+							{
+							case 1:
+							popupWindow =window.open("seatingplan.html?exam_id="+exam_id+"&date="+date+"&time="+time,"_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=900, height=350,top=200,left=200");
+							break;
+							case 2:
+							popupWindow =window.open("dform.html?exam_id="+exam_id+"&date="+date+"&time="+time,"_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=900, height=350,top=200,left=200");
+							break;
+							}
 						else
-							return false;
+							switch(flag)
+							{
+							case 1:
+							popupWindow =window.open("view_subjects.html?exam_id="+exam_id+"&date="+date+"&time="+time,"_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=900, height=350,top=200,left=200");
+							break;
+							case 2:
+							alert("Seating Plan not generated");
+							break;
+							}
                     });
 }
 function generateHallPlan(size,classroom)
@@ -521,7 +538,7 @@ function retrieveSubjects(exam_id,date,time)
 	    $.getJSON(link,
                     function (data) {
 			$.each(data.subject_list, function (index, element) {
-				$('#subjects').append("<li><a href=\"javascript:generateDform('"+element.subject_code+"','"+element.subject_name+"')\">" + element.subject_code + "    " +element.subject_name +"</a></li>");
+				$('#subjects').append("<li><a href=\"javascript:generateDform('"+exam_id+"','"+date+"','"+time+"','"+element.subject_code+"')\">" + element.subject_code + "    " +element.subject_name +"</a></li>");
 			});	
                     });
 }
@@ -572,3 +589,106 @@ function generateSeatingPlan(size,classroom)
 	else if(size == 56)
 		room56(classroom,true);
 }
+function generateDform(exam_id,date,time,subject_code)
+{
+	date_array = date.split("/");
+	time_array = time.split(":");
+	link = url_link+"/api/studentsSubject/" + exam_id + "/" + date_array[2] + "/" + date_array[0] + "/" + date_array[1] + "/" + time_array[0] + "/" + time_array[1] + "/" + subject_code + "/";
+	    $.getJSON(link,
+                    function (data) {
+			start_set = parseInt(data.start_set);
+			max_set = parseInt(data.max_set);
+			print_script = "<center><table width=\"80%\"><tr>";
+			for(i=0;i<parseInt(max_set);i++)
+				print_script += "<td>" + (i+1) + "</td>";
+			print_script += "</tr>";
+			flag = false;
+			temp_index = 1;
+			row_index = 1;
+			$.each(data.student_list, function (index, element) {
+				if(temp_index == start_set)
+				{
+					temp_index =0;
+					flag =true;
+				}
+				if(row_index == 1)
+					print_script += "<tr>";
+				if(flag)
+				{
+					print_script +="<td onClick=\"javascript:modifyStudentWindow('"+element.regno+"')\">"+element.regno+"</td>";						
+				}
+				else
+				{
+					print_script +="<td>Empty</td>";
+					temp_index++;
+				}
+				row_index++;
+				if(row_index > max_set)
+				{
+					row_index = 1;
+					print_script +="</tr>";
+				}
+			});	
+			if(row_index != 1)
+			{
+				while(row_index <= max_set)
+				{
+					print_script += "<td>Empty</td>";
+					row_index++;
+				}
+				print_script += "</tr>";
+			}
+			print_script += "</table></center>";
+			$('#display').html(print_script);
+                    });
+}
+function getStudentDetails(exam_id,date,time,regno)
+{
+	date_array = date.split("/");
+	time_array = time.split(":");
+	link = url_link+"/api/getStudentDetails/" + exam_id + "/" + date_array[2] + "/" + date_array[0] + "/" + date_array[1] + "/" + time_array[0] + "/" + time_array[1] + "/" + regno + "/";
+	    $.getJSON(link,
+                    function (data) {
+			$('#student').html(regno);
+			$('#attendance').attr('checked',data.attendance);
+			$('#malpractice').attr('checked',data.malpractice);
+			$('#blankomr').attr('checked',data.blankomr);
+                    });
+}
+function updateStudentDetails()
+{
+	obj = new Object();
+	if($('#attendance').is(":checked"))
+		obj.attendance = true;
+	else
+		obj.attendance = false;
+	if($('#malpractice').is(":checked"))
+		obj.malpractice = true;
+	else
+		obj.malpractice = false;
+	if($('#blankomr').is(":checked"))
+		obj.blankomr = true;
+	else
+		obj.blankomr = false;
+	data = JSON.stringify(obj);
+	date_array = date.split("/");
+	time_array = time.split(":");
+	link = url_link+"/api/getStudentDetails/" + exam_id + "/" + date_array[2] + "/" + date_array[0] + "/" + date_array[1] + "/" + time_array[0] + "/" + time_array[1] + "/" + regno + "/";
+	$.ajax({
+		url: link,
+		type: 'POST',
+		data: data,
+		dataType: "json",
+		contentType: "application/json",
+		success: function(data) {
+		if(data.status == 'success'){
+			alert('working');
+			window.opener = self;
+			window.close();
+		}
+		else
+			alert('failed');
+		}
+	});
+}
+

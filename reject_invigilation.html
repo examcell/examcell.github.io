@@ -9,14 +9,12 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-	<style>
-		div.absolute {
-		    position: absolute;
-		    left: 70px;
-		 
-		 
-		}
-	</style>
+	<!-- date picker imports -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <!-- date picker imports ENDS-->
+
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,53 +23,22 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body onFocus="parent_disable();" onclick="parent_disable();">
+  <body>
 	<br><br><br>
 	<center>
- 	<div class="container-fluid">
-	   <div>
- 	   <button type="button" class="btn btn-success" onClick="javascript:openHallPlan()">Hall Plan</button>
-	   </div>
-		<br><br><br>
-	   <div>
- 	   <button type="button" class="btn btn-success" onClick="javascript:openSeatingPlan()">Seating Plan</button>
-	   </div>
-		<br><br><br>
-	   <div>
- 	   <button type="button" class="btn btn-success" onClick="javascript:openDform()">DForm</button>
-	   </div>
-	   </div>
-
-	<br><br>
-		
- 	</div>
+    <div class="container-fluid">
+    <br>
+    	<div class="page-header" id="display">
+	 
+	</div>
+     </div>
 	</center>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/site.js"></script>
     <script type="text/javascript">
-	var popupWindow=null;
-	function parent_disable() {
-		if(popupWindow && !popupWindow.closed)
-		popupWindow.focus();
-		}
-	function openHallPlan()
-	{
-		popupWindow =window.open("hallplan.html?exam_id="+exam_id+"&date="+date+"&time="+time,"_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=900, height=350,top=200,left=200");
-	}
-	function openSeatingPlan()
-	{
-		isSetAllocated(exam_id,date,time,1)
-		
-	}
-	function openDform()
-	{
-		isSetAllocated(exam_id,date,time,2)
-	}
       	$(document).ready(function(){
-	    theUrl = window.location.href;
 	    url = theUrl.split('?');
 	    elements = url[1].split('&');
 	    obj = elements[0].split('=');
@@ -80,7 +47,20 @@
 	    date = obj[1];
             obj = elements[2].split('=');
 	    time = obj[1];
-	    alert(date);
+	    obj = elements[3].split('=');
+	    faculty_id = obj[1];
+	    date_array = date.split("/");
+	    time_array = time.split(":");
+	    link = url_link+"/api/rejectInvigilation/" + exam_id + "/" + date_array[2] + "/" + date_array[0] + "/" + date_array[1] + "/" + time_array[0] + "/" + time_array[1] + "/" + faculty_id + "/";
+	    $.getJSON(link,
+                    function (data) {
+				if(data.status == 'success')
+					$("#display").html("<h4>Request Successfully Submitted</h4>");
+				else
+					$("#display").html("<h4>Request Unsuccessfull</h4>");
+			});	
+                    });
+		$("#datepicker").datepicker();
 	});
    </script> 
   </body>

@@ -17,13 +17,13 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body onFocus="parent_disable();" onclick="parent_disable();">
 	<br><br><br>
 	<center>
     <div class="container-fluid">
     <div class="dropdown" style="display: inline-block;">
 	  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-		Classrooms
+		Subjects
 		<span class="caret"></span>
 	  </button>
 	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="subjects">
@@ -41,6 +41,15 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/site.js"></script>
     <script>
+	var popupWindow=null;
+	function modifyStudentWindow(regno)
+	{
+		popupWindow =window.open("updatestudent.html?exam_id="+exam_id+"&date="+date+"&time="+time+"&regno="+regno,"_blank","directories=no, status=no, menubar=no, scrollbars=yes, resizable=no,width=900, height=350,top=200,left=200");
+	}
+	function parent_disable() {
+		if(popupWindow && !popupWindow.closed)
+		popupWindow.focus();
+	}
       	$(document).ready(function(){
 	    theUrl = window.location.href;
 	    url = theUrl.split('?');
