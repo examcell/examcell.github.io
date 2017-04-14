@@ -1,13 +1,14 @@
 // using jQuery
 url1 = 'https://mvgrexamcell.pythonanywhere.com';
 url2 = 'http://127.0.0.1:8000';
-url_link = url1;
+url_link = url2;
 exam_id = null;
 time = null;
 date = null;
 regno = null;
 capacity = 0;
 dhcapacity = 0;
+doc_url = null;
 classroom_count = 0;
 function getCookie(name) {
     var cookieValue = null;
@@ -343,7 +344,10 @@ function room36(classroom,flag)
 	    $.getJSON(link,
                     function (data) {
 			index_1 = 0;
-			
+			if(flag)
+			doc_url = data.url+'seatingplan.docx';
+			else
+			doc_url = data.url+'hallplan.docx';
 			index_2 = 0;
 			$.each(data.student_list, function (index, element) {
 				regno = element.regno;
@@ -365,7 +369,8 @@ function room36(classroom,flag)
 				if(flag)
 				print_script += "<tr><td>"+set_list[i][0]+"</td><td>"+set_list[i][1]+"</td><td></td><td>"+set_list[i][2]+"</td><td>"+set_list[i][3]+"</td><td></td><td>"+set_list[i][4]+"</td><td>"+set_list[i][5]+"</td></tr>";
 			}
-			print_script += "</table>";
+			print_script += "</table><br><br>";
+			print_script += "<a href=\""+doc_url+"\">Download</a>";
 			$('#display').html(print_script);
 
                     });
@@ -384,7 +389,10 @@ function room56(classroom,flag)
 	    $.getJSON(link,
                     function (data) {
 			index_1 = 0;
-			
+			if(flag)
+			doc_url = data.url+'seatingplan.docx';
+			else
+			doc_url = data.url+'hallplan.docx';
 			index_2 = 0;
 			$.each(data.student_list, function (index, element) {
 				regno = element.regno;
@@ -406,7 +414,8 @@ function room56(classroom,flag)
 				if(flag)
 				print_script += "<tr><td>"+set_list[i][0]+"</td><td></td><td>"+set_list[i][1]+"</td><td></td><td>"+set_list[i][2]+"</td><td></td><td>"+set_list[i][3]+"</td></tr>";
 			}
-			print_script += "</table>";
+			print_script += "</table><br><br>";
+			print_script += "<a href=\""+doc_url+"\">Download</a>";
 			$('#display').html(print_script);
 
                     });
@@ -425,7 +434,10 @@ function room24(classroom,flag)
 	    $.getJSON(link,
                     function (data) {
 			index_1 = 0;
-			
+			if(flag)
+			doc_url = data.url+'seatingplan.docx';
+			else
+			doc_url = data.url+'hallplan.docx';
 			index_2 = 0;
 			$.each(data.student_list, function (index, element) {
 				regno = element.regno;
@@ -447,7 +459,8 @@ function room24(classroom,flag)
 				if(flag)
 				print_script += "<tr><td>"+set_list[i][0]+"</td><td>"+set_list[i][1]+"</td><td></td><td></td><td></td><td></td><td>"+set_list[i][2]+"</td><td>"+set_list[i][3]+"</td></tr>";
 			}
-			print_script += "</table>";
+			print_script += "</table><br><br>";
+			print_script += "<a href=\""+doc_url+"\">Download</a>";
 			$('#display').html(print_script);
 
                     });
@@ -596,6 +609,7 @@ function generateDform(exam_id,date,time,subject_code)
 	link = url_link+"/api/studentsSubject/" + exam_id + "/" + date_array[2] + "/" + date_array[0] + "/" + date_array[1] + "/" + time_array[0] + "/" + time_array[1] + "/" + subject_code + "/";
 	    $.getJSON(link,
                     function (data) {
+			doc_url = data.url;
 			start_set = parseInt(data.start_set);
 			max_set = parseInt(data.max_set);
 			print_script = "<center><table width=\"80%\"><tr>";
@@ -638,7 +652,8 @@ function generateDform(exam_id,date,time,subject_code)
 				}
 				print_script += "</tr>";
 			}
-			print_script += "</table></center>";
+			print_script += "</table></center><br><br>";
+			print_script += "<a href=\""+doc_url+"\">Download</a>";
 			$('#display').html(print_script);
                     });
 }
